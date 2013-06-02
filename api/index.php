@@ -13,15 +13,17 @@ function displayStatic($path) {
     displayError();
 }
 
-function displayModel($path, $className, $action) {
+function displayModel($config, $path, $className, $action) {
     if (is_file($path)) {
         include_once($path);
         if (class_exists($className)) {
-            $controller = new $className;
+            // instantiate class and fetch result
+            $controller = new $className($config);
             $actionMethod = $action . 'Action';
             $result = json_encode($controller->$actionMethod());
 
-            //todo:set header
+            // display result
+            header('Content-type: application/json');
             echo $result;
             exit;
         }
@@ -35,6 +37,9 @@ error_reporting(E_ALL | E_STRICT);
 ini_set('display_errors', true);
 
 $site = isset($_GET['site']) ? $_GET['site'] : '';
+
+// load config
+$config = json_decode(file_get_contents('config.json'));
 $routes = json_decode(file_get_contents('routes.json'));
 
 // find currentRoute
@@ -54,7 +59,7 @@ if ($route->type === 'static') {
     displayStatic($route->path);
 } else if ($route->type === 'model') {
     //todo: select action
-    displayModel($route->path, $route->className, 'get');
+    displayModel($config, $route->path, $route->className, 'get');
 } else {
     displayError();
 }

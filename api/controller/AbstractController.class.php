@@ -1,21 +1,13 @@
 <?php
 
-class AbstractController {
-    protected function getAction() {
-        return array('result' => true);
-    }
+abstract class AbstractController {
+    abstract protected function getAction();
 
-    protected function postAction() {
-        return array('result' => true);
-    }
+    abstract protected function postAction();
 
-    protected function putAction() {
-        return array('result' => true);
-    }
+    abstract protected function putAction();
 
-    protected function deleteAction() {
-        return array('result' => true);
-    }
+    abstract protected function deleteAction();
 }
 
 
