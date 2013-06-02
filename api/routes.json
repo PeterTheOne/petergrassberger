@@ -1,0 +1,13 @@
+[
+    {
+        "url": "",
+        "type": "static",
+        "path": "html/index.html"
+    },
+    {
+        "url": "page",
+        "type": "model",
+        "path": "controller/PageController.class.php",
+        "className": "PageController"
+    }
+]
